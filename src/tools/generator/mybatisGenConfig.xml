@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<generatorConfiguration>
+
+	<!-- 描述（会显示在类注释上） -->
+	<description>
+		psauser测试
+	</description>
+
+	<!-- 包路径 -->
+	<pack>
+		com.earlyzen.crm.psauser
+	</pack>
+
+	<!-- 数据库表名 -->
+	<tableName>
+		psa_user
+	</tableName>
+	
+	<!-- 数据表主键id类型,Integer/String -->
+	<tablePrimaryKeyType>
+		String
+	</tablePrimaryKeyType>
+
+	<!-- 实体类名（驼峰命名法，首字母大写） -->
+	<domainObjectName>
+		PsaUser
+	</domainObjectName>
+	
+	<!-- 是否创建：1 创建，0 不创建 -->
+	<controllerFlag>
+		1
+	</controllerFlag>
+	
+	<mapperXmlFlag>
+		1
+	</mapperXmlFlag>
+
+	<mapperJavaFlag>
+		1
+	</mapperJavaFlag>
+
+	<entityFlag>
+		1
+	</entityFlag>
+
+	<serviceFlag>
+		1
+	</serviceFlag>
+	
+</generatorConfiguration>

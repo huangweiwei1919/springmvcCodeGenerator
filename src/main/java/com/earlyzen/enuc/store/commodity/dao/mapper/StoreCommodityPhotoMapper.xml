@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.earlyzen.enuc.store.commodity.dao.mapper.StoreCommodityPhotoMapper">
+
+	<insert id="insert" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into store_commodity_photo 
+		(
+			ID,
+			COMMODITY_ID,
+			IMAGE_URL,
+			RECORD_SORT,
+			CREATE_ID,
+			CREATE_TIME,
+			RECORD_STATE,
+			DELETE_ID,
+			DELETE_TIME
+		)	
+		values	
+		(	
+			#{id},
+			#{commodityId},
+			#{imageUrl},
+			#{recordSort},
+			#{createId},
+			#{createTime},
+			#{recordState},
+			#{deleteId},
+			#{deleteTime}
+		)	
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into store_commodity_photo 	
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null">	
+				ID,	
+			</if>	
+			<if test="commodityId!=null">	
+				COMMODITY_ID,	
+			</if>	
+			<if test="imageUrl!=null">	
+				IMAGE_URL,	
+			</if>	
+			<if test="recordSort!=null">	
+				RECORD_SORT,	
+			</if>	
+			<if test="createId!=null">	
+				CREATE_ID,	
+			</if>	
+			<if test="createTime!=null">	
+				CREATE_TIME,	
+			</if>	
+			<if test="recordState!=null">	
+				RECORD_STATE,	
+			</if>	
+			<if test="deleteId!=null">	
+				DELETE_ID,	
+			</if>	
+			<if test="deleteTime!=null">	
+				DELETE_TIME,	
+			</if>	
+		</trim>	
+		values	
+		<trim prefix="(" suffix=")" suffixOverrides=",">	
+			<if test="id!=null">	
+				#{id},	
+			</if>	
+			<if test="commodityId!=null">	
+				#{commodityId},	
+			</if>	
+			<if test="imageUrl!=null">	
+				#{imageUrl},	
+			</if>	
+			<if test="recordSort!=null">	
+				#{recordSort},	
+			</if>	
+			<if test="createId!=null">	
+				#{createId},	
+			</if>	
+			<if test="createTime!=null">	
+				#{createTime},	
+			</if>	
+			<if test="recordState!=null">	
+				#{recordState},	
+			</if>	
+			<if test="deleteId!=null">	
+				#{deleteId},	
+			</if>	
+			<if test="deleteTime!=null">	
+				#{deleteTime},	
+			</if>	
+		</trim>	
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from store_commodity_photo 	
+		WHERE ID=#{id}
+	</delete>
+	
+  	<delete id="deleteBatch" parameterType="java.util.Collection">
+    	delete from store_commodity_photo 	 
+    	where ID IN
+    	<foreach collection="array" index="index" item="item" open="(" separator="," close=")"> #{item} </foreach>
+  	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		update store_commodity_photo 	
+		set 	
+		COMMODITY_ID=#{commodityId},	
+		IMAGE_URL=#{imageUrl},	
+		RECORD_SORT=#{recordSort},	
+		CREATE_ID=#{createId},	
+		CREATE_TIME=#{createTime},	
+		RECORD_STATE=#{recordState},	
+		DELETE_ID=#{deleteId},	
+		DELETE_TIME=#{deleteTime}	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		update store_commodity_photo 	
+		<set> 	
+			<if test="commodityId!=null">	
+				COMMODITY_ID=#{commodityId},	
+			</if>	
+			<if test="imageUrl!=null">	
+				IMAGE_URL=#{imageUrl},	
+			</if>	
+			<if test="recordSort!=null">	
+				RECORD_SORT=#{recordSort},	
+			</if>	
+			<if test="createId!=null">	
+				CREATE_ID=#{createId},	
+			</if>	
+			<if test="createTime!=null">	
+				CREATE_TIME=#{createTime},	
+			</if>	
+			<if test="recordState!=null">	
+				RECORD_STATE=#{recordState},	
+			</if>	
+			<if test="deleteId!=null">	
+				DELETE_ID=#{deleteId},	
+			</if>	
+			<if test="deleteTime!=null">	
+				DELETE_TIME=#{deleteTime},	
+			</if>	
+		</set> 	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.COMMODITY_ID commodityId,	
+		_tbl.IMAGE_URL imageUrl,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.RECORD_STATE recordState,	
+		_tbl.DELETE_ID deleteId,	
+		_tbl.DELETE_TIME deleteTime	
+		from store_commodity_photo _tbl	
+		where _tbl.Id=#{id}	
+	</select>
+
+	<select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT COUNT(*) from store_commodity_photo _tbl
+		<where>
+			
+			<if test=" commodityId!=null ">	
+				 and COMMODITY_ID=#{commodityId}  	
+			</if>	
+			<if test=" imageUrl!=null ">	
+				 and IMAGE_URL=#{imageUrl}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" recordState!=null ">	
+				 and RECORD_STATE=#{recordState}  	
+			</if>	
+			<if test=" deleteId!=null ">	
+				 and DELETE_ID=#{deleteId}  	
+			</if>	
+			<if test=" deleteTime!=null ">	
+				 and DELETE_TIME=#{deleteTime}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.COMMODITY_ID commodityId,	
+		_tbl.IMAGE_URL imageUrl,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.RECORD_STATE recordState,	
+		_tbl.DELETE_ID deleteId,	
+		_tbl.DELETE_TIME deleteTime	
+		from store_commodity_photo _tbl	
+		<where>
+			
+			<if test=" commodityId!=null ">	
+				 and COMMODITY_ID=#{commodityId}  	
+			</if>	
+			<if test=" imageUrl!=null ">	
+				 and IMAGE_URL=#{imageUrl}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" recordState!=null ">	
+				 and RECORD_STATE=#{recordState}  	
+			</if>	
+			<if test=" deleteId!=null ">	
+				 and DELETE_ID=#{deleteId}  	
+			</if>	
+			<if test=" deleteTime!=null ">	
+				 and DELETE_TIME=#{deleteTime}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="findByMapAndReturnARecord" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.store.commodity.model.StoreCommodityPhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.COMMODITY_ID commodityId,	
+		_tbl.IMAGE_URL imageUrl,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.RECORD_STATE recordState,	
+		_tbl.DELETE_ID deleteId,	
+		_tbl.DELETE_TIME deleteTime	
+		from store_commodity_photo _tbl	
+		<where>
+			
+			<if test=" commodityId!=null ">	
+				 and COMMODITY_ID=#{commodityId}  	
+			</if>	
+			<if test=" imageUrl!=null ">	
+				 and IMAGE_URL=#{imageUrl}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" recordState!=null ">	
+				 and RECORD_STATE=#{recordState}  	
+			</if>	
+			<if test=" deleteId!=null ">	
+				 and DELETE_ID=#{deleteId}  	
+			</if>	
+			<if test=" deleteTime!=null ">	
+				 and DELETE_TIME=#{deleteTime}  	
+			</if>	
+
+		</where>
+		limit 1
+	</select>
+</mapper>
+	

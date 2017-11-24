@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="##{srcPack}##.dao.mapper.##{domainObjectName}##Mapper">
+
+	<insert id="insert" parameterType="##{srcPack}##.model.##{domainObjectName}##">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		##{insert}##
+	</insert>
+	
+	<insert id="insertSelective" parameterType="##{srcPack}##.model.##{domainObjectName}##">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		##{insertWithIf}##
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		##{delete}##	
+		WHERE ID=#{id}
+	</delete>
+	
+  	<delete id="deleteBatch" parameterType="java.util.Collection">
+    	##{delete}##	 
+    	where ID IN
+    	<foreach collection="array" index="index" item="item" open="(" separator="," close=")"> #{item} </foreach>
+  	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="##{srcPack}##.model.##{domainObjectName}##">
+		##{update}##
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="##{srcPack}##.model.##{domainObjectName}##">
+		##{updateWithIf}##
+	</update>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="##{srcPack}##.model.##{domainObjectName}##">
+		##{find}##
+		where _tbl.Id=#{id}	
+	</select>
+
+	<select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		##{count_*}##
+		<where>
+		##{whereCondition}##
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map"
+		resultType="##{srcPack}##.model.##{domainObjectName}##">
+		##{find}##
+		<where>
+		##{whereCondition}##
+		</where>
+	</select>
+	
+	<select id="findByMapAndReturnARecord" parameterType="java.util.Map"
+		resultType="##{srcPack}##.model.##{domainObjectName}##">
+		##{find}##
+		<where>
+		##{whereCondition}##
+		</where>
+		limit 1
+	</select>
+</mapper>
+	

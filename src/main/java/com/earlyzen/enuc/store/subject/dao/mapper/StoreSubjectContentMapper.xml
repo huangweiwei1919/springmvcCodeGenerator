@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.earlyzen.enuc.store.subject.dao.mapper.StoreSubjectContentMapper">
+
+	<insert id="insert" parameterType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into store_subject_content 
+		(
+			ID,
+			SUBJECT_ID,
+			TYPE,
+			RECORD_SORT,
+			CONTENT,
+			CREATE_ID,
+			CREATE_TIME,
+			PARK_ID
+		)	
+		values	
+		(	
+			#{id},
+			#{subjectId},
+			#{type},
+			#{recordSort},
+			#{content},
+			#{createId},
+			#{createTime},
+			#{parkId}
+		)	
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into store_subject_content 	
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null">	
+				ID,	
+			</if>	
+			<if test="subjectId!=null">	
+				SUBJECT_ID,	
+			</if>	
+			<if test="type!=null">	
+				TYPE,	
+			</if>	
+			<if test="recordSort!=null">	
+				RECORD_SORT,	
+			</if>	
+			<if test="content!=null">	
+				CONTENT,	
+			</if>	
+			<if test="createId!=null">	
+				CREATE_ID,	
+			</if>	
+			<if test="createTime!=null">	
+				CREATE_TIME,	
+			</if>	
+			<if test="parkId!=null">	
+				PARK_ID,	
+			</if>	
+		</trim>	
+		values	
+		<trim prefix="(" suffix=")" suffixOverrides=",">	
+			<if test="id!=null">	
+				#{id},	
+			</if>	
+			<if test="subjectId!=null">	
+				#{subjectId},	
+			</if>	
+			<if test="type!=null">	
+				#{type},	
+			</if>	
+			<if test="recordSort!=null">	
+				#{recordSort},	
+			</if>	
+			<if test="content!=null">	
+				#{content},	
+			</if>	
+			<if test="createId!=null">	
+				#{createId},	
+			</if>	
+			<if test="createTime!=null">	
+				#{createTime},	
+			</if>	
+			<if test="parkId!=null">	
+				#{parkId},	
+			</if>	
+		</trim>	
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from store_subject_content 	
+		WHERE ID=#{id}
+	</delete>
+	
+  	<delete id="deleteBatch" parameterType="java.util.Collection">
+    	delete from store_subject_content 	 
+    	where ID IN
+    	<foreach collection="array" index="index" item="item" open="(" separator="," close=")"> #{item} </foreach>
+  	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		update store_subject_content 	
+		set 	
+		SUBJECT_ID=#{subjectId},	
+		TYPE=#{type},	
+		RECORD_SORT=#{recordSort},	
+		CONTENT=#{content},	
+		CREATE_ID=#{createId},	
+		CREATE_TIME=#{createTime},	
+		PARK_ID=#{parkId}	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		update store_subject_content 	
+		<set> 	
+			<if test="subjectId!=null">	
+				SUBJECT_ID=#{subjectId},	
+			</if>	
+			<if test="type!=null">	
+				TYPE=#{type},	
+			</if>	
+			<if test="recordSort!=null">	
+				RECORD_SORT=#{recordSort},	
+			</if>	
+			<if test="content!=null">	
+				CONTENT=#{content},	
+			</if>	
+			<if test="createId!=null">	
+				CREATE_ID=#{createId},	
+			</if>	
+			<if test="createTime!=null">	
+				CREATE_TIME=#{createTime},	
+			</if>	
+			<if test="parkId!=null">	
+				PARK_ID=#{parkId},	
+			</if>	
+		</set> 	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		select  	
+		_tbl.ID id,	
+		_tbl.SUBJECT_ID subjectId,	
+		_tbl.TYPE type,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.CONTENT content,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.PARK_ID parkId	
+		from store_subject_content _tbl	
+		where _tbl.Id=#{id}	
+	</select>
+
+	<select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT COUNT(*) from store_subject_content _tbl
+		<where>
+			
+			<if test=" subjectId!=null ">	
+				 and SUBJECT_ID=#{subjectId}  	
+			</if>	
+			<if test=" type!=null ">	
+				 and TYPE=#{type}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" content!=null ">	
+				 and CONTENT=#{content}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" parkId!=null ">	
+				 and PARK_ID=#{parkId}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		select  	
+		_tbl.ID id,	
+		_tbl.SUBJECT_ID subjectId,	
+		_tbl.TYPE type,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.CONTENT content,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.PARK_ID parkId	
+		from store_subject_content _tbl	
+		<where>
+			
+			<if test=" subjectId!=null ">	
+				 and SUBJECT_ID=#{subjectId}  	
+			</if>	
+			<if test=" type!=null ">	
+				 and TYPE=#{type}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" content!=null ">	
+				 and CONTENT=#{content}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" parkId!=null ">	
+				 and PARK_ID=#{parkId}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="findByMapAndReturnARecord" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.store.subject.model.StoreSubjectContent">
+		select  	
+		_tbl.ID id,	
+		_tbl.SUBJECT_ID subjectId,	
+		_tbl.TYPE type,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.CONTENT content,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.PARK_ID parkId	
+		from store_subject_content _tbl	
+		<where>
+			
+			<if test=" subjectId!=null ">	
+				 and SUBJECT_ID=#{subjectId}  	
+			</if>	
+			<if test=" type!=null ">	
+				 and TYPE=#{type}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" content!=null ">	
+				 and CONTENT=#{content}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" parkId!=null ">	
+				 and PARK_ID=#{parkId}  	
+			</if>	
+
+		</where>
+		limit 1
+	</select>
+</mapper>
+	

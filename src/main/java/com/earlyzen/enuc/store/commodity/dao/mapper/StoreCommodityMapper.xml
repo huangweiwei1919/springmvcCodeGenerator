@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.earlyzen.enuc.store.commodity.dao.mapper.StoreCommodityMapper">
+
+	<insert id="insert" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into store_commodity 
+		(
+			ID,
+			COMMODITY_TYPE_ID,
+			NAME,
+			RECORD_STATE,
+			RECOMMEND_STATE,
+			NOTES,
+			MIN_PRICE,
+			MAX_PRICE,
+			SERVICE_CHARGE,
+			DETAILS,
+			NOTICE,
+			NOTICE_TEMPLATE_ID,
+			CREATE_ID,
+			CREATE_TIME,
+			DELETE_ID,
+			DELETE_TIME,
+			PARK_ID
+		)	
+		values	
+		(	
+			#{id},
+			#{commodityTypeId},
+			#{name},
+			#{recordState},
+			#{recommendState},
+			#{notes},
+			#{minPrice},
+			#{maxPrice},
+			#{serviceCharge},
+			#{details},
+			#{notice},
+			#{noticeTemplateId},
+			#{createId},
+			#{createTime},
+			#{deleteId},
+			#{deleteTime},
+			#{parkId}
+		)	
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into store_commodity 	
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null">	
+				ID,	
+			</if>	
+			<if test="commodityTypeId!=null">	
+				COMMODITY_TYPE_ID,	
+			</if>	
+			<if test="name!=null">	
+				NAME,	
+			</if>	
+			<if test="recordState!=null">	
+				RECORD_STATE,	
+			</if>	
+			<if test="recommendState!=null">	
+				RECOMMEND_STATE,	
+			</if>	
+			<if test="notes!=null">	
+				NOTES,	
+			</if>	
+			<if test="minPrice!=null">	
+				MIN_PRICE,	
+			</if>	
+			<if test="maxPrice!=null">	
+				MAX_PRICE,	
+			</if>	
+			<if test="serviceCharge!=null">	
+				SERVICE_CHARGE,	
+			</if>	
+			<if test="details!=null">	
+				DETAILS,	
+			</if>	
+			<if test="notice!=null">	
+				NOTICE,	
+			</if>	
+			<if test="noticeTemplateId!=null">	
+				NOTICE_TEMPLATE_ID,	
+			</if>	
+			<if test="createId!=null">	
+				CREATE_ID,	
+			</if>	
+			<if test="createTime!=null">	
+				CREATE_TIME,	
+			</if>	
+			<if test="deleteId!=null">	
+				DELETE_ID,	
+			</if>	
+			<if test="deleteTime!=null">	
+				DELETE_TIME,	
+			</if>	
+			<if test="parkId!=null">	
+				PARK_ID,	
+			</if>	
+		</trim>	
+		values	
+		<trim prefix="(" suffix=")" suffixOverrides=",">	
+			<if test="id!=null">	
+				#{id},	
+			</if>	
+			<if test="commodityTypeId!=null">	
+				#{commodityTypeId},	
+			</if>	
+			<if test="name!=null">	
+				#{name},	
+			</if>	
+			<if test="recordState!=null">	
+				#{recordState},	
+			</if>	
+			<if test="recommendState!=null">	
+				#{recommendState},	
+			</if>	
+			<if test="notes!=null">	
+				#{notes},	
+			</if>	
+			<if test="minPrice!=null">	
+				#{minPrice},	
+			</if>	
+			<if test="maxPrice!=null">	
+				#{maxPrice},	
+			</if>	
+			<if test="serviceCharge!=null">	
+				#{serviceCharge},	
+			</if>	
+			<if test="details!=null">	
+				#{details},	
+			</if>	
+			<if test="notice!=null">	
+				#{notice},	
+			</if>	
+			<if test="noticeTemplateId!=null">	
+				#{noticeTemplateId},	
+			</if>	
+			<if test="createId!=null">	
+				#{createId},	
+			</if>	
+			<if test="createTime!=null">	
+				#{createTime},	
+			</if>	
+			<if test="deleteId!=null">	
+				#{deleteId},	
+			</if>	
+			<if test="deleteTime!=null">	
+				#{deleteTime},	
+			</if>	
+			<if test="parkId!=null">	
+				#{parkId},	
+			</if>	
+		</trim>	
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from store_commodity 	
+		WHERE ID=#{id}
+	</delete>
+	
+  	<delete id="deleteBatch" parameterType="java.util.Collection">
+    	delete from store_commodity 	 
+    	where ID IN
+    	<foreach collection="array" index="index" item="item" open="(" separator="," close=")"> #{item} </foreach>
+  	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		update store_commodity 	
+		set 	
+		COMMODITY_TYPE_ID=#{commodityTypeId},	
+		NAME=#{name},	
+		RECORD_STATE=#{recordState},	
+		RECOMMEND_STATE=#{recommendState},	
+		NOTES=#{notes},	
+		MIN_PRICE=#{minPrice},	
+		MAX_PRICE=#{maxPrice},	
+		SERVICE_CHARGE=#{serviceCharge},	
+		DETAILS=#{details},	
+		NOTICE=#{notice},	
+		NOTICE_TEMPLATE_ID=#{noticeTemplateId},	
+		CREATE_ID=#{createId},	
+		CREATE_TIME=#{createTime},	
+		DELETE_ID=#{deleteId},	
+		DELETE_TIME=#{deleteTime},	
+		PARK_ID=#{parkId}	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		update store_commodity 	
+		<set> 	
+			<if test="commodityTypeId!=null">	
+				COMMODITY_TYPE_ID=#{commodityTypeId},	
+			</if>	
+			<if test="name!=null">	
+				NAME=#{name},	
+			</if>	
+			<if test="recordState!=null">	
+				RECORD_STATE=#{recordState},	
+			</if>	
+			<if test="recommendState!=null">	
+				RECOMMEND_STATE=#{recommendState},	
+			</if>	
+			<if test="notes!=null">	
+				NOTES=#{notes},	
+			</if>	
+			<if test="minPrice!=null">	
+				MIN_PRICE=#{minPrice},	
+			</if>	
+			<if test="maxPrice!=null">	
+				MAX_PRICE=#{maxPrice},	
+			</if>	
+			<if test="serviceCharge!=null">	
+				SERVICE_CHARGE=#{serviceCharge},	
+			</if>	
+			<if test="details!=null">	
+				DETAILS=#{details},	
+			</if>	
+			<if test="notice!=null">	
+				NOTICE=#{notice},	
+			</if>	
+			<if test="noticeTemplateId!=null">	
+				NOTICE_TEMPLATE_ID=#{noticeTemplateId},	
+			</if>	
+			<if test="createId!=null">	
+				CREATE_ID=#{createId},	
+			</if>	
+			<if test="createTime!=null">	
+				CREATE_TIME=#{createTime},	
+			</if>	
+			<if test="deleteId!=null">	
+				DELETE_ID=#{deleteId},	
+			</if>	
+			<if test="deleteTime!=null">	
+				DELETE_TIME=#{deleteTime},	
+			</if>	
+			<if test="parkId!=null">	
+				PARK_ID=#{parkId},	
+			</if>	
+		</set> 	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		select  	
+		_tbl.ID id,	
+		_tbl.COMMODITY_TYPE_ID commodityTypeId,	
+		_tbl.NAME name,	
+		_tbl.RECORD_STATE recordState,	
+		_tbl.RECOMMEND_STATE recommendState,	
+		_tbl.NOTES notes,	
+		_tbl.MIN_PRICE minPrice,	
+		_tbl.MAX_PRICE maxPrice,	
+		_tbl.SERVICE_CHARGE serviceCharge,	
+		_tbl.DETAILS details,	
+		_tbl.NOTICE notice,	
+		_tbl.NOTICE_TEMPLATE_ID noticeTemplateId,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.DELETE_ID deleteId,	
+		_tbl.DELETE_TIME deleteTime,	
+		_tbl.PARK_ID parkId	
+		from store_commodity _tbl	
+		where _tbl.Id=#{id}	
+	</select>
+
+	<select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT COUNT(*) from store_commodity _tbl
+		<where>
+			
+			<if test=" commodityTypeId!=null ">	
+				 and COMMODITY_TYPE_ID=#{commodityTypeId}  	
+			</if>	
+			<if test=" name!=null ">	
+				 and NAME=#{name}  	
+			</if>	
+			<if test=" recordState!=null ">	
+				 and RECORD_STATE=#{recordState}  	
+			</if>	
+			<if test=" recommendState!=null ">	
+				 and RECOMMEND_STATE=#{recommendState}  	
+			</if>	
+			<if test=" notes!=null ">	
+				 and NOTES=#{notes}  	
+			</if>	
+			<if test=" minPrice!=null ">	
+				 and MIN_PRICE=#{minPrice}  	
+			</if>	
+			<if test=" maxPrice!=null ">	
+				 and MAX_PRICE=#{maxPrice}  	
+			</if>	
+			<if test=" serviceCharge!=null ">	
+				 and SERVICE_CHARGE=#{serviceCharge}  	
+			</if>	
+			<if test=" details!=null ">	
+				 and DETAILS=#{details}  	
+			</if>	
+			<if test=" notice!=null ">	
+				 and NOTICE=#{notice}  	
+			</if>	
+			<if test=" noticeTemplateId!=null ">	
+				 and NOTICE_TEMPLATE_ID=#{noticeTemplateId}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" deleteId!=null ">	
+				 and DELETE_ID=#{deleteId}  	
+			</if>	
+			<if test=" deleteTime!=null ">	
+				 and DELETE_TIME=#{deleteTime}  	
+			</if>	
+			<if test=" parkId!=null ">	
+				 and PARK_ID=#{parkId}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		select  	
+		_tbl.ID id,	
+		_tbl.COMMODITY_TYPE_ID commodityTypeId,	
+		_tbl.NAME name,	
+		_tbl.RECORD_STATE recordState,	
+		_tbl.RECOMMEND_STATE recommendState,	
+		_tbl.NOTES notes,	
+		_tbl.MIN_PRICE minPrice,	
+		_tbl.MAX_PRICE maxPrice,	
+		_tbl.SERVICE_CHARGE serviceCharge,	
+		_tbl.DETAILS details,	
+		_tbl.NOTICE notice,	
+		_tbl.NOTICE_TEMPLATE_ID noticeTemplateId,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.DELETE_ID deleteId,	
+		_tbl.DELETE_TIME deleteTime,	
+		_tbl.PARK_ID parkId	
+		from store_commodity _tbl	
+		<where>
+			
+			<if test=" commodityTypeId!=null ">	
+				 and COMMODITY_TYPE_ID=#{commodityTypeId}  	
+			</if>	
+			<if test=" name!=null ">	
+				 and NAME=#{name}  	
+			</if>	
+			<if test=" recordState!=null ">	
+				 and RECORD_STATE=#{recordState}  	
+			</if>	
+			<if test=" recommendState!=null ">	
+				 and RECOMMEND_STATE=#{recommendState}  	
+			</if>	
+			<if test=" notes!=null ">	
+				 and NOTES=#{notes}  	
+			</if>	
+			<if test=" minPrice!=null ">	
+				 and MIN_PRICE=#{minPrice}  	
+			</if>	
+			<if test=" maxPrice!=null ">	
+				 and MAX_PRICE=#{maxPrice}  	
+			</if>	
+			<if test=" serviceCharge!=null ">	
+				 and SERVICE_CHARGE=#{serviceCharge}  	
+			</if>	
+			<if test=" details!=null ">	
+				 and DETAILS=#{details}  	
+			</if>	
+			<if test=" notice!=null ">	
+				 and NOTICE=#{notice}  	
+			</if>	
+			<if test=" noticeTemplateId!=null ">	
+				 and NOTICE_TEMPLATE_ID=#{noticeTemplateId}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" deleteId!=null ">	
+				 and DELETE_ID=#{deleteId}  	
+			</if>	
+			<if test=" deleteTime!=null ">	
+				 and DELETE_TIME=#{deleteTime}  	
+			</if>	
+			<if test=" parkId!=null ">	
+				 and PARK_ID=#{parkId}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="findByMapAndReturnARecord" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.store.commodity.model.StoreCommodity">
+		select  	
+		_tbl.ID id,	
+		_tbl.COMMODITY_TYPE_ID commodityTypeId,	
+		_tbl.NAME name,	
+		_tbl.RECORD_STATE recordState,	
+		_tbl.RECOMMEND_STATE recommendState,	
+		_tbl.NOTES notes,	
+		_tbl.MIN_PRICE minPrice,	
+		_tbl.MAX_PRICE maxPrice,	
+		_tbl.SERVICE_CHARGE serviceCharge,	
+		_tbl.DETAILS details,	
+		_tbl.NOTICE notice,	
+		_tbl.NOTICE_TEMPLATE_ID noticeTemplateId,	
+		_tbl.CREATE_ID createId,	
+		_tbl.CREATE_TIME createTime,	
+		_tbl.DELETE_ID deleteId,	
+		_tbl.DELETE_TIME deleteTime,	
+		_tbl.PARK_ID parkId	
+		from store_commodity _tbl	
+		<where>
+			
+			<if test=" commodityTypeId!=null ">	
+				 and COMMODITY_TYPE_ID=#{commodityTypeId}  	
+			</if>	
+			<if test=" name!=null ">	
+				 and NAME=#{name}  	
+			</if>	
+			<if test=" recordState!=null ">	
+				 and RECORD_STATE=#{recordState}  	
+			</if>	
+			<if test=" recommendState!=null ">	
+				 and RECOMMEND_STATE=#{recommendState}  	
+			</if>	
+			<if test=" notes!=null ">	
+				 and NOTES=#{notes}  	
+			</if>	
+			<if test=" minPrice!=null ">	
+				 and MIN_PRICE=#{minPrice}  	
+			</if>	
+			<if test=" maxPrice!=null ">	
+				 and MAX_PRICE=#{maxPrice}  	
+			</if>	
+			<if test=" serviceCharge!=null ">	
+				 and SERVICE_CHARGE=#{serviceCharge}  	
+			</if>	
+			<if test=" details!=null ">	
+				 and DETAILS=#{details}  	
+			</if>	
+			<if test=" notice!=null ">	
+				 and NOTICE=#{notice}  	
+			</if>	
+			<if test=" noticeTemplateId!=null ">	
+				 and NOTICE_TEMPLATE_ID=#{noticeTemplateId}  	
+			</if>	
+			<if test=" createId!=null ">	
+				 and CREATE_ID=#{createId}  	
+			</if>	
+			<if test=" createTime!=null ">	
+				 and CREATE_TIME=#{createTime}  	
+			</if>	
+			<if test=" deleteId!=null ">	
+				 and DELETE_ID=#{deleteId}  	
+			</if>	
+			<if test=" deleteTime!=null ">	
+				 and DELETE_TIME=#{deleteTime}  	
+			</if>	
+			<if test=" parkId!=null ">	
+				 and PARK_ID=#{parkId}  	
+			</if>	
+
+		</where>
+		limit 1
+	</select>
+</mapper>
+	

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.earlyzen.crm.psauser.dao.mapper.PsaUserMapper">
+
+	<insert id="insert" parameterType="com.earlyzen.crm.psauser.model.PsaUser">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into psa_user 
+		(
+			ID,
+			USER_NAME,
+			BIRTHDAY
+		)	
+		values	
+		(	
+			#{id},
+			#{userName},
+			#{birthday}
+		)	
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.earlyzen.crm.psauser.model.PsaUser">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into psa_user 	
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null">	
+				ID,	
+			</if>	
+			<if test="userName!=null">	
+				USER_NAME,	
+			</if>	
+			<if test="birthday!=null">	
+				BIRTHDAY,	
+			</if>	
+		</trim>	
+		values	
+		<trim prefix="(" suffix=")" suffixOverrides=",">	
+			<if test="id!=null">	
+				#{id},	
+			</if>	
+			<if test="userName!=null">	
+				#{userName},	
+			</if>	
+			<if test="birthday!=null">	
+				#{birthday},	
+			</if>	
+		</trim>	
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from psa_user 	
+		WHERE ID=#{id}
+	</delete>
+	
+  	<delete id="deleteBatch" parameterType="java.util.Collection">
+    	delete from psa_user 	 
+    	where ID IN
+    	<foreach collection="array" index="index" item="item" open="(" separator="," close=")"> #{item} </foreach>
+  	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="com.earlyzen.crm.psauser.model.PsaUser">
+		update psa_user 	
+		set 	
+		USER_NAME=#{userName},	
+		BIRTHDAY=#{birthday}	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.earlyzen.crm.psauser.model.PsaUser">
+		update psa_user 	
+		<set> 	
+			<if test="userName!=null">	
+				USER_NAME=#{userName},	
+			</if>	
+			<if test="birthday!=null">	
+				BIRTHDAY=#{birthday},	
+			</if>	
+		</set> 	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.earlyzen.crm.psauser.model.PsaUser">
+		select  	
+		_tbl.ID id,	
+		_tbl.USER_NAME userName,	
+		_tbl.BIRTHDAY birthday	
+		from psa_user _tbl	
+		where _tbl.Id=#{id}	
+	</select>
+
+	<select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT COUNT(*) from psa_user _tbl
+		<where>
+		
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map"
+		resultType="com.earlyzen.crm.psauser.model.PsaUser">
+		select  	
+		_tbl.ID id,	
+		_tbl.USER_NAME userName,	
+		_tbl.BIRTHDAY birthday	
+		from psa_user _tbl	
+	</select>
+	
+	<select id="findByMapAndReturnARecord" parameterType="java.util.Map"
+		resultType="com.earlyzen.crm.psauser.model.PsaUser">
+		select  	
+		_tbl.ID id,	
+		_tbl.USER_NAME userName,	
+		_tbl.BIRTHDAY birthday	
+		from psa_user _tbl	
+		<where>
+		
+		</where>
+		limit 1
+	</select>
+</mapper>
+	

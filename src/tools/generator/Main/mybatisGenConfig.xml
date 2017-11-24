@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<generatorConfiguration>
+
+	<!-- 描述（会显示在类注释上） -->
+	<description>分享图片</description>
+
+	<!-- 包路径 -->
+	<pack>com.earlyzen.enuc.socail.share</pack>
+
+	<!-- 数据库表名 -->
+	<tableName>social_share_photo</tableName>
+	
+	<!-- 数据表主键id类型,Integer/String -->
+	<tablePrimaryKeyType>String</tablePrimaryKeyType>
+
+	<!-- 实体类名（驼峰命名法，首字母大写） -->
+	<domainObjectName>SocialSharePhoto</domainObjectName>
+	
+	<!-- 是否创建：1 创建，0 不创建 -->
+	<entityFlag>1</entityFlag>
+	
+	<mapperXmlFlag>1</mapperXmlFlag>
+	
+	<mapperJavaFlag>0</mapperJavaFlag>
+	
+	<serviceFlag>0</serviceFlag>
+	
+	<controllerFlag>0</controllerFlag>
+
+</generatorConfiguration>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:util="http://www.springframework.org/schema/util" 
+		xmlns:mvc="http://www.springframework.org/schema/mvc" 
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-4.0.xsd
+					http://www.springframework.org/schema/context classpath:org/springframework/context/config/spring-context-4.0.xsd
+					http://www.springframework.org/schema/mvc classpath:org/springframework/web/servlet/config/spring-mvc-4.0.xsd
+					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd"
+	default-lazy-init="false" default-autowire="byName">
+	
+	<context:component-scan base-package="com.earlyzen.crm.**.controller" /> 
+    
+    <!-- 启动对@AspectJ注解的支持 -->  
+    <!-- <aop:aspectj-autoproxy/> -->
+	
+    <util:list id="messageConverters">
+		<bean class="com.earlyzen.core.exception.MappingJackson2HttpMessageConverterEx">
+			<property name="supportedMediaTypes">
+				<list>
+					<value>application/json</value>
+                	<value>application/javascript</value>
+                	<value>text/json</value>
+                	<value>text/javascript</value>
+				</list>
+			 </property>
+			 <property name="objectMapper" ref="objectMapper" />
+		</bean>
+		<bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+			<constructor-arg>
+				<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+					<property name="streamDriver"><bean class="com.thoughtworks.xstream.io.xml.DomDriver"/></property>
+					<property name="autodetectAnnotations"><value>true</value></property>
+				</bean>
+			</constructor-arg>
+		</bean>
+		<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+		<!-- 自定义转换器，解决@ResponseBody返回类型中文乱码问题 -->
+		<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+			<property name="supportedMediaTypes">
+				<list>
+					<value>text/plain;charset=UTF-8</value>
+				</list>
+			</property>
+		</bean>
+		<bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+		<!--可以增加其他数据类型,请参考spring的API -->
+    </util:list>
+    
+	<bean id="annotationMethodHandlerAdapter" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" p:ignoreDefaultModelOnRedirect="true">
+		<property name="messageConverters" ref="messageConverters"/>
+		<property name="webBindingInitializer">
+			<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+				<property name="propertyEditorRegistrars">
+					<list>
+						<bean class="com.earlyzen.core.dataeditor.DataEditorRegistrar"/>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <!-- 扩展名至mimeType的映射,即 /user.json => application/json -->
+		<property name="favorPathExtension" value="true"/>
+        <!-- 用于开启 /userinfo/123?format=json 的支持 -->
+		<property name="favorParameter" value="true"/>
+		<property name="parameterName" value="format"/>
+        <!-- 是否忽略Accept Header -->
+		<property name="ignoreAcceptHeader" value="false"/>
+		<property name="mediaTypes"> <!--扩展名到MIME的映射；favorPathExtension, favorParameter是true时起作用  -->
+			<value>
+				json=application/json
+				xml=application/xml
+				do=text/html
+				html=text/html
+				jsp=text/html
+				file=text/plain
+			</value>
+		</property>
+        <!-- 默认的content type -->
+		<property name="defaultContentType" value="text/html"/>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name= "contentNegotiationManager" ref="contentNegotiationManager"/> 
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+				</bean>
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- 处理xml的映射 -->
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+					<property name="marshaller">
+						<bean class="org.springframework.oxm.xstream.XStreamMarshaller"/>
+					</property>
+				</bean>
+				<!-- 处理json的映射 -->
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+					<property name="objectMapper" ref="objectMapper"/>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+		<property name="filters">
+			<bean class="com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider">
+				<property name="failOnUnknownId" value="false"/>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="resourceResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+		<property name="basename" value="views"/>
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+	
+	<bean id="paramResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName" value="method"/>
+	</bean>
+	
+	<!--springmvc 异常统一处理 -->
+	<bean id="exceptionResolver" class="com.earlyzen.core.exception.SpringMvcExceptionResolver" />
+	
+	<!-- 对静态资源文件的访问 不支持访问WEB-INF目录 -->
+	<mvc:default-servlet-handler/>
+	
+	<mvc:annotation-driven/>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >  
+	    <property name="messageConverters">   
+	          <list>   
+	              <bean class = "org.springframework.http.converter.StringHttpMessageConverter">   
+	                 <property name = "supportedMediaTypes">
+	                       <list>
+	                           <value>text/html;charset=UTF-8</value>   
+	                      </list>   
+	                 </property>   
+	              </bean>   
+	          </list>   
+	     </property>  
+	 </bean>
+ 
+	<bean id="requestFactory" class="org.springframework.http.client.SimpleClientHttpRequestFactory">  
+	    <property name="readTimeout" value="60000"/>  
+	    <property name="connectTimeout" value="100000"/>  
+	</bean>  
+	  
+    <!-- swagger 配置 -->
+    <bean class="com.earlyzen.crm.swagger.SwaggerConfig"/>
+</beans>

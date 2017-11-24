@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=
+		"http://www.springframework.org/schema/beans 
+		classpath:org/springframework/beans/factory/xml/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context 
+		classpath:org/springframework/context/config/spring-context-4.0.xsd"
+	default-autowire="byName">
+
+	<context:component-scan base-package="com.earlyzen.crm.**.service" />
+	
+	<context:property-placeholder location="classpath:init.properties"/>
+	
+	<!--系统能够识别相应的注解-->
+	<context:annotation-config />
+	
+	<!-- redis数据库配置 -->
+	<!-- <import resource="applicationContext-redis.xml" /> -->
+	
+	<!-- Apache Shiro权限配置 -->
+	<!-- <import resource="applicationContext-shiro.xml" /> -->
+	
+	<!-- 数据访问层配置 -->
+	<import resource="applicationContext-dao.xml"/>
+	
+	
+</beans>

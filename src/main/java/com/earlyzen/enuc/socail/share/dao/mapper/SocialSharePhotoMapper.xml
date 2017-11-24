@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.earlyzen.enuc.socail.share.dao.mapper.SocialSharePhotoMapper">
+
+	<insert id="insert" parameterType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into social_share_photo 
+		(
+			ID,
+			SHARE_ID,
+			PIC_FILE_ID,
+			RECORD_SORT,
+			PIC_PATH,
+			PIC_COMPRESS_PATH,
+			PIC_WIDTH,
+			PIC_HEIGHT,
+			PIC_COMPRESS_WIDTH,
+			PIC_COMPRESS_HEIGHT
+		)	
+		values	
+		(	
+			#{id},
+			#{shareId},
+			#{picFileId},
+			#{recordSort},
+			#{picPath},
+			#{picCompressPath},
+			#{picWidth},
+			#{picHeight},
+			#{picCompressWidth},
+			#{picCompressHeight}
+		)	
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		<selectKey keyProperty="id" order="BEFORE" resultType="String">
+			select replace(UUID(),'-','')
+		</selectKey>
+		insert into social_share_photo 	
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null">	
+				ID,	
+			</if>	
+			<if test="shareId!=null">	
+				SHARE_ID,	
+			</if>	
+			<if test="picFileId!=null">	
+				PIC_FILE_ID,	
+			</if>	
+			<if test="recordSort!=null">	
+				RECORD_SORT,	
+			</if>	
+			<if test="picPath!=null">	
+				PIC_PATH,	
+			</if>	
+			<if test="picCompressPath!=null">	
+				PIC_COMPRESS_PATH,	
+			</if>	
+			<if test="picWidth!=null">	
+				PIC_WIDTH,	
+			</if>	
+			<if test="picHeight!=null">	
+				PIC_HEIGHT,	
+			</if>	
+			<if test="picCompressWidth!=null">	
+				PIC_COMPRESS_WIDTH,	
+			</if>	
+			<if test="picCompressHeight!=null">	
+				PIC_COMPRESS_HEIGHT,	
+			</if>	
+		</trim>	
+		values	
+		<trim prefix="(" suffix=")" suffixOverrides=",">	
+			<if test="id!=null">	
+				#{id},	
+			</if>	
+			<if test="shareId!=null">	
+				#{shareId},	
+			</if>	
+			<if test="picFileId!=null">	
+				#{picFileId},	
+			</if>	
+			<if test="recordSort!=null">	
+				#{recordSort},	
+			</if>	
+			<if test="picPath!=null">	
+				#{picPath},	
+			</if>	
+			<if test="picCompressPath!=null">	
+				#{picCompressPath},	
+			</if>	
+			<if test="picWidth!=null">	
+				#{picWidth},	
+			</if>	
+			<if test="picHeight!=null">	
+				#{picHeight},	
+			</if>	
+			<if test="picCompressWidth!=null">	
+				#{picCompressWidth},	
+			</if>	
+			<if test="picCompressHeight!=null">	
+				#{picCompressHeight},	
+			</if>	
+		</trim>	
+	</insert>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from social_share_photo 	
+		WHERE ID=#{id}
+	</delete>
+	
+  	<delete id="deleteBatch" parameterType="java.util.Collection">
+    	delete from social_share_photo 	 
+    	where ID IN
+    	<foreach collection="array" index="index" item="item" open="(" separator="," close=")"> #{item} </foreach>
+  	</delete>
+	
+	<update id="updateByPrimaryKey" parameterType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		update social_share_photo 	
+		set 	
+		SHARE_ID=#{shareId},	
+		PIC_FILE_ID=#{picFileId},	
+		RECORD_SORT=#{recordSort},	
+		PIC_PATH=#{picPath},	
+		PIC_COMPRESS_PATH=#{picCompressPath},	
+		PIC_WIDTH=#{picWidth},	
+		PIC_HEIGHT=#{picHeight},	
+		PIC_COMPRESS_WIDTH=#{picCompressWidth},	
+		PIC_COMPRESS_HEIGHT=#{picCompressHeight}	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		update social_share_photo 	
+		<set> 	
+			<if test="shareId!=null">	
+				SHARE_ID=#{shareId},	
+			</if>	
+			<if test="picFileId!=null">	
+				PIC_FILE_ID=#{picFileId},	
+			</if>	
+			<if test="recordSort!=null">	
+				RECORD_SORT=#{recordSort},	
+			</if>	
+			<if test="picPath!=null">	
+				PIC_PATH=#{picPath},	
+			</if>	
+			<if test="picCompressPath!=null">	
+				PIC_COMPRESS_PATH=#{picCompressPath},	
+			</if>	
+			<if test="picWidth!=null">	
+				PIC_WIDTH=#{picWidth},	
+			</if>	
+			<if test="picHeight!=null">	
+				PIC_HEIGHT=#{picHeight},	
+			</if>	
+			<if test="picCompressWidth!=null">	
+				PIC_COMPRESS_WIDTH=#{picCompressWidth},	
+			</if>	
+			<if test="picCompressHeight!=null">	
+				PIC_COMPRESS_HEIGHT=#{picCompressHeight},	
+			</if>	
+		</set> 	
+		where 	
+		ID=#{id} 	
+	</update>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.SHARE_ID shareId,	
+		_tbl.PIC_FILE_ID picFileId,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.PIC_PATH picPath,	
+		_tbl.PIC_COMPRESS_PATH picCompressPath,	
+		_tbl.PIC_WIDTH picWidth,	
+		_tbl.PIC_HEIGHT picHeight,	
+		_tbl.PIC_COMPRESS_WIDTH picCompressWidth,	
+		_tbl.PIC_COMPRESS_HEIGHT picCompressHeight	
+		from social_share_photo _tbl	
+		where _tbl.Id=#{id}	
+	</select>
+
+	<select id="findCountByMap" parameterType="java.util.Map"
+		resultType="java.lang.String">
+		SELECT COUNT(*) from social_share_photo _tbl
+		<where>
+			
+			<if test=" shareId!=null ">	
+				 and SHARE_ID=#{shareId}  	
+			</if>	
+			<if test=" picFileId!=null ">	
+				 and PIC_FILE_ID=#{picFileId}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" picPath!=null ">	
+				 and PIC_PATH=#{picPath}  	
+			</if>	
+			<if test=" picCompressPath!=null ">	
+				 and PIC_COMPRESS_PATH=#{picCompressPath}  	
+			</if>	
+			<if test=" picWidth!=null ">	
+				 and PIC_WIDTH=#{picWidth}  	
+			</if>	
+			<if test=" picHeight!=null ">	
+				 and PIC_HEIGHT=#{picHeight}  	
+			</if>	
+			<if test=" picCompressWidth!=null ">	
+				 and PIC_COMPRESS_WIDTH=#{picCompressWidth}  	
+			</if>	
+			<if test=" picCompressHeight!=null ">	
+				 and PIC_COMPRESS_HEIGHT=#{picCompressHeight}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="list" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.SHARE_ID shareId,	
+		_tbl.PIC_FILE_ID picFileId,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.PIC_PATH picPath,	
+		_tbl.PIC_COMPRESS_PATH picCompressPath,	
+		_tbl.PIC_WIDTH picWidth,	
+		_tbl.PIC_HEIGHT picHeight,	
+		_tbl.PIC_COMPRESS_WIDTH picCompressWidth,	
+		_tbl.PIC_COMPRESS_HEIGHT picCompressHeight	
+		from social_share_photo _tbl	
+		<where>
+			
+			<if test=" shareId!=null ">	
+				 and SHARE_ID=#{shareId}  	
+			</if>	
+			<if test=" picFileId!=null ">	
+				 and PIC_FILE_ID=#{picFileId}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" picPath!=null ">	
+				 and PIC_PATH=#{picPath}  	
+			</if>	
+			<if test=" picCompressPath!=null ">	
+				 and PIC_COMPRESS_PATH=#{picCompressPath}  	
+			</if>	
+			<if test=" picWidth!=null ">	
+				 and PIC_WIDTH=#{picWidth}  	
+			</if>	
+			<if test=" picHeight!=null ">	
+				 and PIC_HEIGHT=#{picHeight}  	
+			</if>	
+			<if test=" picCompressWidth!=null ">	
+				 and PIC_COMPRESS_WIDTH=#{picCompressWidth}  	
+			</if>	
+			<if test=" picCompressHeight!=null ">	
+				 and PIC_COMPRESS_HEIGHT=#{picCompressHeight}  	
+			</if>	
+
+		</where>
+	</select>
+	
+	<select id="findByMapAndReturnARecord" parameterType="java.util.Map"
+		resultType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.SHARE_ID shareId,	
+		_tbl.PIC_FILE_ID picFileId,	
+		_tbl.RECORD_SORT recordSort,	
+		_tbl.PIC_PATH picPath,	
+		_tbl.PIC_COMPRESS_PATH picCompressPath,	
+		_tbl.PIC_WIDTH picWidth,	
+		_tbl.PIC_HEIGHT picHeight,	
+		_tbl.PIC_COMPRESS_WIDTH picCompressWidth,	
+		_tbl.PIC_COMPRESS_HEIGHT picCompressHeight	
+		from social_share_photo _tbl	
+		<where>
+			
+			<if test=" shareId!=null ">	
+				 and SHARE_ID=#{shareId}  	
+			</if>	
+			<if test=" picFileId!=null ">	
+				 and PIC_FILE_ID=#{picFileId}  	
+			</if>	
+			<if test=" recordSort!=null ">	
+				 and RECORD_SORT=#{recordSort}  	
+			</if>	
+			<if test=" picPath!=null ">	
+				 and PIC_PATH=#{picPath}  	
+			</if>	
+			<if test=" picCompressPath!=null ">	
+				 and PIC_COMPRESS_PATH=#{picCompressPath}  	
+			</if>	
+			<if test=" picWidth!=null ">	
+				 and PIC_WIDTH=#{picWidth}  	
+			</if>	
+			<if test=" picHeight!=null ">	
+				 and PIC_HEIGHT=#{picHeight}  	
+			</if>	
+			<if test=" picCompressWidth!=null ">	
+				 and PIC_COMPRESS_WIDTH=#{picCompressWidth}  	
+			</if>	
+			<if test=" picCompressHeight!=null ">	
+				 and PIC_COMPRESS_HEIGHT=#{picCompressHeight}  	
+			</if>	
+
+		</where>
+		limit 1
+	</select>
+	
+	<select id="selectPhotosByShareId" parameterType="java.lang.String"
+		resultType="com.earlyzen.enuc.socail.share.model.SocialSharePhoto">
+		select  	
+		_tbl.ID id,	
+		_tbl.SHARE_ID shareId,	
+		_tbl.PIC_FILE_ID picFileId,	
+		_tbl.RECORD_SORT recordSort,
+		_tbl.PIC_PATH picPath,	
+		_tbl.PIC_COMPRESS_PATH picCompressPath	
+		from social_share_photo _tbl
+		where _tbl.SHARE_ID = #{shareId}
+	</select>
+</mapper>
+	

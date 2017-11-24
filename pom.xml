@@ -1,0 +1,304 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.earlyzen</groupId>
+  <artifactId>crm</artifactId>
+  <packaging>war</packaging>
+  <version>1.0</version>
+  <name>CRM Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+      <spring.version>4.0.3.RELEASE</spring.version>
+	  <spring.mobile>1.1.2.RELEASE</spring.mobile>
+  </properties>
+	
+  <dependencies>
+  	<dependency>
+      <groupId>com.earlyzen</groupId>
+      <artifactId>earlyzen-core</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  
+    <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+	<dependency>
+	    <groupId>dom4j</groupId>
+	    <artifactId>dom4j</artifactId>
+	    <version>1.6.1</version>
+	</dependency>
+	
+	<!-- 日志 start -->
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.14</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>1.7.7</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>1.7.7</version>
+	</dependency>
+	<!-- 日志 end-->
+	
+	<!-- servlet包 start -->
+	<dependency>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet.jsp</groupId>
+		<artifactId>jsp-api</artifactId>
+		<version>2.2</version>
+		<scope>compile</scope>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>3.1.0</version>
+		<scope>compile</scope>
+	</dependency>
+	<!-- servlet包  end-->
+		
+	<!-- spring包 start -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-expression</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-oxm</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.mobile</groupId>
+		<artifactId>spring-mobile-device</artifactId>
+		<version>${spring.mobile}</version>
+	</dependency>
+	<!-- spring包 end-->
+	
+	<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.10</version>
+	</dependency>
+	
+	<!-- 持久化层 start -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.30</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.2.7</version>
+	</dependency>
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>1.2.2</version>
+	</dependency>
+	<!-- 持久化层 end-->
+	
+	<!-- apache commons包 -->
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>1.9.0</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>2.6</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.1.3</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>3.2.1</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>2.4</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
+		<version>1.3.1</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-configuration</groupId>
+		<artifactId>commons-configuration</artifactId>
+		<version>1.6</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<version>1.2</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-pool</groupId>
+		<artifactId>commons-pool</artifactId>
+		<version>1.6</version>
+	</dependency>
+	<!-- apache commons包 -->
+	
+	<!-- swagger-springmvc -->
+	<dependency>
+		<groupId>com.mangofactory</groupId>
+		<artifactId>swagger-springmvc</artifactId>
+		<version>1.0.2</version>
+	</dependency>
+	<dependency>
+		<groupId>com.mangofactory</groupId>
+		<artifactId>swagger-models</artifactId>
+		<version>1.0.2</version>
+	</dependency>
+	<dependency>
+		<groupId>com.wordnik</groupId>
+		<artifactId>swagger-annotations</artifactId>
+		<version>1.3.11</version>
+	</dependency>
+	
+	<dependency>
+    <groupId>com.thoughtworks.xstream</groupId>
+    <artifactId>xstream</artifactId>
+    <version>1.4.6</version>
+</dependency>
+	
+	<dependency>
+		<groupId>xpp3</groupId> 
+		<artifactId>xpp3_min</artifactId> 
+		<version>1.1.4c</version> 
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.github.pagehelper</groupId>
+	    <artifactId>pagehelper</artifactId>
+	    <version>5.0.0</version>
+	</dependency>
+	
+  </dependencies>
+  
+  <build>
+    <finalName>crm</finalName>
+   <resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.ftl</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+	</resources>
+    <plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>2.3.2</version>
+			<configuration>
+				<source>1.7</source>
+				<target>1.7</target>
+				<encoding>UTF8</encoding>
+				 <extdirs>src\main\webapp\WEB-INF\lib</extdirs> 
+			</configuration>
+		</plugin>
+	     <plugin>
+             <groupId>org.mybatis.generator</groupId>
+             <artifactId>mybatis-generator-maven-plugin</artifactId>
+             <version>1.3.2</version>
+             <configuration>
+              <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                 <verbose>true</verbose>
+                 <overwrite>true</overwrite>
+             </configuration>
+         </plugin>
+         <plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.0.M0</version>
+				<configuration>
+					<webApp>
+						<contextPath>/crm</contextPath>
+					</webApp>
+				</configuration>
+			</plugin>
+     </plugins>
+  </build>
+</project>
